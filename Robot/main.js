@@ -8,19 +8,28 @@
 // })
 
 // wx.startRecord();
+var getText = function (inner) {
 
-$.ajax({
-    type: 'POST',
-    url: 'http://op.juhe.cn/robot/index',
-    data: {
-        info: "我帅不",
-        key: "d36a210be688534b2f80f0beb162146e",
-        loc: "北京科技大学",
-        userid: "123"
-    },
-    success: function (data) {
-        console.log(data);
-        console.log(data.result.text)
-    },
-    dataType: 'JSONP'
-});
+    $.ajax({
+        type: 'POST',
+        url: 'http://op.juhe.cn/robot/index',
+        data: {
+            info: inner,
+            key: "d36a210be688534b2f80f0beb162146e",
+            loc: "北京科技大学",
+            userid: "123"
+        },
+        success: function (data) {
+            // console.log(data);
+            console.log(data.result.text);
+        },
+        dataType: 'JSONP'
+    });
+}
+
+var sayOut = function () {
+    // alert("Asd");
+    var theText = $("#diyKeyword").val();
+    console.log(theText);
+    getText(theText);
+}

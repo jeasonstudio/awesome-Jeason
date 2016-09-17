@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>webgl2</title>
+    <style>
+        #webgl {
+            background: #ccc;
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+    <script src="http://cdn.bootcss.com/three.js/r80/three.min.js"></script>
+    <script type="text/javascript">
+        var renderer; //声明一个全局变量
+        /*
+         *构建基本画布 渲染器
+         */
+        function initThree() {
+            width = document.getElementById('webgl').clientWidth;
+            height = document.getElementById('webgl').clientHeight;
+            renderer = new THREE.WebGLRenderer({
+                antialias: true
+            }); //生成渲染器对象，属性：锯齿效果设为true
+            renderer.setSize(width, height); //设置渲染器的宽和高，和画布大小一致
+            document.getElementById('webgl').appendChild(renderer.domElement); //追加canvas元素到webgl元素当中
+            renderer.setClearColorHex(0xFFFFFF, 1.0); //设置渲染器的清除色
+        }
+        /*
+         *设置相机
+         */
+        var camera;
+
+        function initCamera() {
+            camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+            //此处为设置透视投影的相机，默认情况下，相机的上方向为Y轴，右方向为X轴，沿着Z轴垂直朝里（视野角：fov； 纵横比：aspect； 相机离视最近的距离：near； 相机离视体积最远距离：far）
+            camera.position.x = 400; //设置相机的位置坐标
+            camera.position.y = 0;
+            camera.position.z = 0;
+            //设置相机的上为y轴方向
+            camera.up.x = 0;
+            camera.up.y = 1;
+            camera.up.z = 0;
+        }
+        /*
+         *设置场景，所有的元素只有在添加到场景当中之后才能够生效
+         */
+        var scene;
+
+        function initScene() {
+            scene = new THREE.Scene();
+        }
+        /*
+         *设置光源
+         */
+        var light;
+
+        function initLight() {
+            light = new THREE.DirectionalLight(0x0000FF, 1.0, 0); //设置平行光DirectionalLight
+            light.position.set(50, 50, 50); //光源向量，即光源的位置
+            scene.add(light); //追加光源到场景
+        }
+
+        /*
+         *设置物体
+         */
+        var cube = Array();
+
+        function initObject() {
+            for (var i = 0; i < 4; i++) {
+                cube[i] = new THREE.Mesh( //mesh是three.js的一个类
+                    new THREE.CubeGeometry(50, 50, 50), //形状 （宽 高 深度）
+                    new THREE.MeshLambertMaterial({
+                        color: 0x0000FF
+                    }) //材质
+                );
+                scene.add(cube[i]);
+                cube[i].position.set(0, -120 + 80 * i, 0);
+            }
+        }
+        /*
+         *旋转
+         */
+        var t = 0;
+
+        function loop() {
+            t++;
+            renderer.clear();
+            cube[0].rotation.set(t / 100, 0, 0);
+            cube[1].rotation.set(0, t / 100, 0);
+            cube[2].rotation.set(0, 0, t / 100);
+            camera.lookAt({
+                x: 0,
+                y: 0,
+                z: 0
+            });
+            renderer.render(scene, camera);
+            window.requestAnimationFrame(loop);
+        }
+        /*
+         *执行
+         */
+        function threeStart() {
+            initThree();
+            initCamera();
+            initScene();
+            initLight();
+            initObject();
+            loop();
+            renderer.clear();
+            renderer.render(scene, camera);
+        }
+        /*
+        *如果想让立体图形进行循环运动，需要使用到loop
+        *首先创建渲染器、相机、场景、光源、物体以及最后的执行
+        *只需要添加loop函数
+        var t=0;
+        function loop(){
+         t++;
+         cube.rotation.set(t/100,0,0);
+         renderer.clear();
+         renderer.render(scene,camera);
+         window.requestAnimationFrame(loop);
+        }
+        */
+    </script>
+</head>
+
+<body onload="threeStart();">
+    <div id="webgl"></div>
+</body>
+
+</html>
