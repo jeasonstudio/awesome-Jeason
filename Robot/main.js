@@ -23,7 +23,8 @@ var getText2 = function (JiaFanming) {
         },
         success: function (data) {
             // console.log(data);
-            console.log('贾凡茗：' + data.text);
+            console.log('州长夫人：' + data.text);
+            document.write('<span class="innerTest">州长夫人：' + data.text + '</span><br/>');
             JeasonT = data.text;
             setTimeout(getText(JeasonT),1500);
             
@@ -47,8 +48,8 @@ var getText = function (Jeason) {
         },
         success: function (data) {
             // console.log(data);
-            console.log('赵吉彤：' + data.result.text);
-            document.write('<span class="innerTest">赵吉彤：' + data.result.text + '</span><br/>');
+            console.log('长者：' + data.result.text);
+            document.write('<span class="innerTest">长者：' + data.result.text + '</span><br/>');
             JiaFanmingT = data.result.text;
             setTimeout(getText2(JiaFanmingT),1500);
             // getAK(data.result.text);
@@ -70,8 +71,8 @@ var getText2 = function (JiaFanming) {
         },
         success: function (data) {
             // console.log(data);
-            console.log('贾凡茗：' + data.text);
-            document.write('<span class="innerTest">贾凡茗：' + data.text + '</span><br/>');
+            console.log('州长夫人：' + data.text);
+            document.write('<span class="innerTest">州长夫人：' + data.text + '</span><br/>');
             JeasonT = data.text;
             setTimeout(getText(JeasonT),1500);
             
