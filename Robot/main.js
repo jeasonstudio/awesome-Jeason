@@ -48,7 +48,7 @@ var getAK = function (mainStr) {
             client_secret: 'e109162a8056190d6a07662637fbd64a'
         },
         success: function (data) {
-            console.log(data);
+            // console.log(data);
             readIt( mainStr , '24.f66bbeeef7a98404f5d21cbd7739d15d.2592000.1476965633.282335-8650753');
         },
         // error: function () {
@@ -68,11 +68,13 @@ var readIt = function ( text , ak ) {
         data: {
             tex: text,
             lan: 'zh',
-            tok: 'ak',
+            tok: ak,
             ctp: 1,
             cuid: '123423534'
         },
-        success: function (data) { },
+        success: function (data) { 
+            // console.log(data);
+         },
         error: function () {
             alert("Error!");
         }
